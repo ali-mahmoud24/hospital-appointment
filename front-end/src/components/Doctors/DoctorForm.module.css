@@ -1,0 +1,20 @@
+.actions {
+  margin-top: 1.5rem;
+}
+
+.actions button {
+  width: 82%;
+  cursor: pointer;
+  font: inherit;
+  color: #fff;
+  background-color: #198754;
+  border: 1px solid #198754;
+  border-radius: 5px;
+  padding: 5px 0;
+  font-size: 20px;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: rgba(25, 135, 84, 0.9);
+}

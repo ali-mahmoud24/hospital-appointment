@@ -1,0 +1,56 @@
+/* .body {
+  width: 100%;
+  height: 100%;
+
+  background-image: url('https://img.freepik.com/free-vector/healthcare-medical-with-cardiograph-line_1017-30390.jpg?t=st=1658369957~exp=1658370557~hmac=ec219779a06a84c8926fa28b3167fe667d251402f7134974d5f1c20a0b3b006d&w=1060');
+  background-repeat: no-repeat, repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+
+  background-position: center;
+
+  position: relative;
+}
+
+.body::after {
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+} */
+
+.starting {
+  margin: 6rem auto;
+  text-align: center;
+}
+
+.starting h1 {
+  /* color: #fff; */
+  font-size: 3.5rem;
+}
+
+.starting button {
+  cursor: pointer;
+  padding: 5px 20px;
+  border-radius: 10px;
+  background-color: #064663;
+  border: 1px solid #064663;
+}
+
+.starting a {
+  text-decoration: none;
+  font-size: 35px;
+  color: #fff;
+}
+
+.starting button:hover,
+.starting button:active {
+  background-color: rgba(6, 70, 99, 0.9);
+}

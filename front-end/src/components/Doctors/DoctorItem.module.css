@@ -1,0 +1,125 @@
+.image-container {
+  width: 200px;
+  height: 200px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  border-top: 2px solid #000;
+}
+
+.card-body h3 {
+  margin: 1rem 0;
+}
+
+.card-body h4 {
+  margin-bottom: 0.5rem;
+  font-size: 20px;
+}
+
+.card-body div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+  max-width: 85%;
+
+  background-color: #add8e6;
+  border-radius: 20px;
+  padding: 6px 20px;
+}
+
+/* .card-body p {
+  line-height: 1.2rem;
+} */
+
+.card-body button {
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  /* background-color: #064663;
+  border: 1px solid #064663; */
+  background-color: #add8e6;
+  border: 1px solid #add8e6;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.card-body button:hover,
+.card-body button:active {
+  background-color: rgba(173, 216, 230, 0.85);
+}
+
+/*   color variables */
+/* $clr-primary: #0e48fe;
+$clr-primary-hover: #29e6a7;
+$clr-primary-dark: #039d69;
+$clr-gray100: #f9fbff;
+$clr-gray150: #f4f6fb;
+$clr-gray200: #eef1f6;
+$clr-gray300: #e1e5ee;
+$clr-gray400: #767b91;
+$clr-gray500: #4f546c;
+$clr-gray600: #2a324b;
+$clr-gray700: #161d34; */
+
+/*   border radius */
+/* $radius: 0.2rem; */
+
+/* .wrapper {
+  margin: 2rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  justify-content: center;
+}
+
+.card {
+  box-shadow: 0 0 10px 5px $clr-gray300;
+  border-radius: $radius;
+  min-width: 28rem;
+  display: flex;
+
+}
+
+  &__img {
+    width: 14rem;
+    height: 11rem;
+    object-fit: cover;
+  }
+
+  &__body {
+    margin: 1rem;
+    flex-grow: 1;
+  }
+  &__title {
+    line-height: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  &__description {
+    line-height: 1.2rem;
+  } */
+
+/* @media screen and (min-width: 600px) {
+  .wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 16rem));
+  }
+
+  .card {
+    flex-direction: column;
+    text-align: center;
+    min-width: 14rem;
+
+    &__img {
+      width: 100%;
+      height: 12rem;
+    }
+  }
+} */

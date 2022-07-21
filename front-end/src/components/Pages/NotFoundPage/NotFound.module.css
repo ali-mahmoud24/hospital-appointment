@@ -1,0 +1,9 @@
+.not-found {
+  margin: 6rem auto;
+  text-align: center;
+}
+
+.not-found h1 {
+  color: #fff;
+  font-size: 4rem;
+}
