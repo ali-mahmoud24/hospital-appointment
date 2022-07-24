@@ -1,7 +1,9 @@
-import DoctorForm from '../components/Doctors/DoctorForm';
+import React from 'react';
+
+import NewDoctor from '../components/Doctors/NewDoctor';
 
 const AddDoctorPage = () => {
-  return <DoctorForm />;
+  return <NewDoctor />;
 };
 
 export default AddDoctorPage;

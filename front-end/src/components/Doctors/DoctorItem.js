@@ -1,48 +1,76 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import Card from '../../shared/components/UI/Card';
+
+import Button from '../../shared/components/FormElements/Button';
+
 import classes from './DoctorItem.module.css';
 
 const DoctorItem = props => {
   const { imageUrl, name, speciality, experience } = props;
 
+  const navigate = useNavigate();
+
+  const deleteDoctorHandler = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/admin/doctors/${props.id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+      props.onDelete(props.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const redirectToEdit = () => {
+    navigate(`/doctors/${props.id}`);
+  };
+
   return (
-    <>
-      <div className={classes['image-container']}>
-        <img src={imageUrl} alt={`Dr. ${name}`} />
-      </div>
+    <li className={classes['list-item']}>
+      <Card className={classes.card}>
+        <div className={classes['image-container']}>
+          <img src={`http://localhost:8000/${imageUrl}`} alt={`Dr. ${name}`} />
+        </div>
 
-      <section className={classes['card-body']}>
-        <h3>Dr. {name}</h3>
+        <section className={classes['card-body']}>
+          <h3>Dr. {name}</h3>
 
-        <h4>Speciality:</h4>
-        <div>{speciality}</div>
+          <h4>Speciality:</h4>
 
-        <h4>Doctor experience:</h4>
-        <p>{experience}</p>
+          <div className="center">
+            <span>{speciality}</span>
+          </div>
 
-        <button>Book Appointment</button>
-      </section>
-    </>
+          <h4>Doctor experience:</h4>
+          <p>{experience}</p>
+        </section>
+
+        <div className={`${classes.booking} center`}>
+          <Button>Book Appointment</Button>
+        </div>
+
+        <div className={`${classes.action} center`}>
+          <Button id="edit" inverse onClick={redirectToEdit}>
+            Edit
+          </Button>
+          <Button danger onClick={deleteDoctorHandler}>
+            Delete
+          </Button>
+        </div>
+      </Card>
+    </li>
   );
 };
 
 export default DoctorItem;
-
-// <Card
-//   img="https://images.unsplash.com/photo-1569235080412-01b4eefa5fbe?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
-//   title="White Blouse"
-//   description="Blouse • Lacey"
-//   price="19.95"
-// />
-
-//   function Card(props) {
-//     return (
-//       <div className="card">
-//         <img src={props.img} className="card__img" />
-//         <div className="card__body">
-//           <h2 className="card__title">{props.title}</h2>
-//           <p className="card__description">{props.description}</p>
-//           <h3 className="card__price">{props.price}</h3>
-//           <button className="card__btn">Add to Cart</button>
-//         </div>
-//       </div>
-//     );
-//   }

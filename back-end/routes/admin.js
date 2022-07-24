@@ -1,19 +1,28 @@
+const fileUpload = require('../middleware/file-upload');
 const express = require('express');
 
 const adminController = require('../controllers/admin');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
-router.post('/add-doctor', adminController.postAddDoctor);
+// router.use(checkAuth);
 
-// router.get('/doctors', adminController.getDoctors);
+router.get('/doctors/:doctorId', adminController.getDoctor);
 
-// router.get('/appointments', adminController.getAppointments);
+router.post(
+  '/add-doctor',
+  fileUpload.single('image'),
+  adminController.addDoctor
+);
 
-// router.get('/edit-doctor/:productId', adminController.getEditProduct);
+router.patch('/doctors/:doctorId', adminController.updateDoctor);
 
-// router.post('/edit-doctor', adminController.postEditProduct);
+//    /admin/doctors/:doctorId
+router.delete('/doctors/:doctorId', adminController.deleteDoctor);
 
-// router.post('/delete-doctor', adminController.PostDeleteDoctor);
+// router.post('/edit-appointment/appointmentId', adminController.editAppointment);
+
+// router.post('/delete-appointment//appointmentId', adminController.deleteAppointment);
 
 module.exports = router;

@@ -1,7 +1,8 @@
+import React from 'react';
 import DoctorsList from '../components/Doctors/DoctorsList';
 
-const AppointmentsPage = () => {
+const DoctorsPage = () => {
   return <DoctorsList />;
 };
 
-export default AppointmentsPage;
+export default DoctorsPage;

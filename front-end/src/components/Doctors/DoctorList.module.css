@@ -4,13 +4,7 @@
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 30px 20px;
-  margin: 2rem;
-}
-
-.list-item {
-  box-shadow: 0 0 10px 5px #e1e5ee;
-  border-radius: 10px;
-  padding: 25px;
-  /* min-width: 28rem; */
+  margin: 1rem 2rem;
 }
