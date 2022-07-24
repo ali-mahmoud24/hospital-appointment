@@ -42,14 +42,13 @@ exports.addDoctor = async (req, res, next) => {
 };
 
 exports.updateDoctor = async (req, res, next) => {
-  const { firstname, secondname, specialization, experience, imageUrl } =
-    req.body;
+  const { firstname, secondname, specialization, experience } = req.body;
   const { doctorId } = req.params;
 
   let doctor;
 
   try {
-    doctor = await Doctor.findByIdAndDelete({ _id: doctorId });
+    doctor = await Doctor.findById({ _id: doctorId });
   } catch (err) {
     console.log(err);
   }
@@ -58,7 +57,6 @@ exports.updateDoctor = async (req, res, next) => {
   doctor.secondname = secondname;
   doctor.specialization = specialization;
   doctor.experience = experience;
-  doctor.imageUrl = imageUrl;
 
   try {
     await doctor.save();
@@ -77,6 +75,10 @@ exports.deleteDoctor = async (req, res, next) => {
     doctor = await Doctor.findByIdAndDelete({ _id: doctorId });
     res.status(200).json({ message: 'Deleted a doctor.' });
   } catch (err) {
-    console.log(err);
+    const error = new HttpError(
+      'Something went wrong, could not delete doctor.',
+      500
+    );
+    return next(error);
   }
 };
