@@ -1,0 +1,39 @@
+.card {
+  box-shadow: 0 0 2px 2px #e1e5ee;
+  border-radius: 10px;
+
+  max-height: 300px;
+  min-height: 200px;
+}
+
+.card h3 {
+  margin: 0.4rem 0;
+}
+
+.card h4 {
+  margin-bottom: 0.2rem;
+  font-size: 18px;
+}
+
+.card span {
+  text-align: center;
+
+  font-weight: bold;
+
+  min-width: 300px;
+  max-width: 430px;
+
+  background-color: #add8e6;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time h4 {
+  margin: 0;
+}

@@ -7,10 +7,13 @@ import AuthPage from './pages/AuthPage';
 import AddDoctorPage from './pages/AddDoctorPage';
 import UpdateDoctorPage from './pages/UpdateDoctorPage';
 import DoctorsPage from './pages/DoctorsPage';
+import AppointmentsPage from './pages/AppointmentsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 import AuthContext from './shared/context/auth-context';
 import { useAuth } from './shared/hooks/use-auth';
+
+import AppointmentForm from './components/Appointment/AppointmentForm';
 
 const SignedInProtectedRoute = ({ children }) => {
   // const { isLoggedIn } = useContext(AuthContext);
@@ -37,7 +40,9 @@ const App = () => {
 
   return (
     <>
-      <AuthContext.Provider
+      <DoctorsPage />
+      {/* <AppointmentsPage /> */}
+      {/* <AuthContext.Provider
         value={{
           isLoggedIn: !!token,
           token: token,
@@ -91,7 +96,7 @@ const App = () => {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
-      </AuthContext.Provider>
+      </AuthContext.Provider> */}
     </>
   );
 };

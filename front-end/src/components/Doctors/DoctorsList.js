@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import DoctorItem from './DoctorItem';
+import AppointmentForm from '../Appointment/AppointmentForm';
 
 import classes from './DoctorList.module.css';
 
@@ -82,7 +83,12 @@ const DoctorsList = () => {
     return <h1>No Doctors found!</h1>;
   }
 
-  return <ul className={classes.list}>{doctorsList}</ul>;
+  return (
+    <>
+      <AppointmentForm />
+      <ul className={classes.list}>{doctorsList}</ul>
+    </>
+  );
 };
 
 export default DoctorsList;
