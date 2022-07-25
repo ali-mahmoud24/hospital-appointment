@@ -1,11 +1,8 @@
 import ReactDom from 'react-dom';
 
-import { useDispatch } from 'react-redux';
-import { uiActions } from '../../store/ui-slice';
-
 import classes from './Modal.module.css';
 
-const Backdrop = (props) => {
+const Backdrop = props => {
   return <div className={classes.backdrop} onClick={props.onClose}></div>;
 };
 
@@ -19,11 +16,10 @@ const ModalOverlay = ({ children }) => {
 
 const portalElement = document.getElementById('overlays');
 
-const Modal = ({ children }) => {
-  const dispatch = useDispatch();
-
+const Modal = ({ children, onClose }) => {
+  
   const onCloseHandler = () => {
-    dispatch(uiActions.closeModal());
+    onClose();
   };
 
   return (

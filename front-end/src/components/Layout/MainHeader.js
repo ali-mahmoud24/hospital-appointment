@@ -8,7 +8,7 @@ const MainHeader = () => {
   return (
     <header className={classes.header}>
       <h1>
-        <Link to="/welcome">Home</Link>
+        <Link to="/welcome">Morningside Clinic</Link>
       </h1>
 
       <Navigation />

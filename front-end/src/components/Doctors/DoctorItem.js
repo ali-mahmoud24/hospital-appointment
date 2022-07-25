@@ -1,16 +1,17 @@
-import React from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Card from '../../shared/components/UI/Card';
 import Button from '../../shared/components/FormElements/Button';
 
+import AuthContext from '../../shared/context/auth-context';
+
 import classes from './DoctorItem.module.css';
-import { uiActions } from '../../shared/store/ui-slice';
-import { useDispatch } from 'react-redux';
 
 const DoctorItem = props => {
-  const dispatch = useDispatch();
   const { imageUrl, name, speciality, experience } = props;
+
+  const { isAdmin } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -25,17 +26,12 @@ const DoctorItem = props => {
           },
         }
       );
-      console.log(response);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       props.onDelete(props.id);
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const openAppointmentModal = () => {
-    dispatch(uiActions.openModal());
   };
 
   const redirectToEdit = () => {
@@ -43,49 +39,42 @@ const DoctorItem = props => {
   };
 
   return (
-    <>
-      <li className={classes['list-item']}>
-        <Card className={classes.card}>
-          <div className={classes['image-container']}>
-            <img
-              src={`http://localhost:8000/${imageUrl}`}
-              alt={`Dr. ${name}`}
-            />
-          </div>
+    <li className={classes['list-item']}>
+      <Card className={classes.card}>
+        <div className={`${classes['image-container']} center`}>
+          <img src={`http://localhost:8000/${imageUrl}`} alt={`Dr. ${name}`} />
+        </div>
 
-          <section className={classes['card-body']}>
-            <h3>Dr. {name}</h3>
+        <section className={classes['card-body']}>
+          <h3>Dr. {name}</h3>
 
-            <h4>Speciality:</h4>
+          <h4>Speciality:</h4>
 
-            <div className="center">
-              <span>{speciality}</span>
-            </div>
+          <span>{speciality}</span>
 
-            <h4>Doctor experience:</h4>
-            <p>{experience}</p>
-          </section>
+          <h4>Doctor experience:</h4>
+          <p>{experience}</p>
+        </section>
 
+        <div className={classes['buttons-container']}>
+          
           <div className={`${classes.booking} center`}>
-            <Button
-              // to={`/doctors/${props.id}`}
-              onClick={openAppointmentModal}
-            >
-              Book Appointment
-            </Button>
+            <Button onClick={props.onBook}>Book Appointment</Button>
           </div>
 
-          <div className={`${classes.action} center`}>
-            <Button inverse onClick={redirectToEdit}>
-              Edit
-            </Button>
-            <Button danger onClick={deleteDoctorHandler}>
-              Delete
-            </Button>
-          </div>
-        </Card>
-      </li>
-    </>
+          {isAdmin && (
+            <div className={`${classes.action} center`}>
+              <Button inverse onClick={redirectToEdit}>
+                Edit
+              </Button>
+              <Button danger onClick={deleteDoctorHandler}>
+                Delete
+              </Button>
+            </div>
+          )}
+        </div>
+      </Card>
+    </li>
   );
 };
 

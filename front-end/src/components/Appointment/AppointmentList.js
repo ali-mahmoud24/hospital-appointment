@@ -1,72 +1,66 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import AppointmentItem from './AppointmentItem';
+
+import AuthContext from '../../shared/context/auth-context';
 
 import classes from './AppointmentList.module.css';
 
 const AppointmentsList = () => {
-  // const [loadedAppointments, setLoadedAppointments] = useState([]);
+  const [loadedAppointments, setLoadedAppointments] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // const appointmentDeletedHandler = deletedAppointmentId => {
-  //   setLoadedAppointments(prevAppointments =>
-  //     prevAppointments.filter(
-  //       appointment => appointment.id !== deletedAppointmentId
-  //     )
-  //   );
-  // };
+  const { token } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   const fetchDoctors = async () => {
-  //     const response = await fetch('http://localhost:8000/doctors');
-  //     const data = await response.json();
-  //     // console.log(data.doctors);
-  //     setLoadedAppointments(data.doctors);
-  //   };
-  //   fetchDoctors();
-  // }, []);
+  const appointmentDeletedHandler = deletedAppointmentId => {
+    setLoadedAppointments(prevAppointments =>
+      prevAppointments.filter(
+        appointment => appointment.id !== deletedAppointmentId
+      )
+    );
+  };
 
-  // const appointmentsList = loadedAppointments.map(appointment => (
-  //   <AppointmentItem
-  //     key={appointment._id}
-  //     id={appointment._id}
-  //     name={`${doctor.firstname} ${doctor.secondname}`}
-  //     speciality={doctor.specialization}
-  //     experience={doctor.experience}
-  //     onDelete={doctorDeletedHandler}
-  //   />
-  // ));
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:8000/appointments', {
+          headers: { Authorization: 'Bearer ' + token },
+        });
+        const data = await response.json();
 
-  // if (appointmentsList.length === 0) {
-  //   return <h1>No Appointemnts found!</h1>;
-  // }
+        setIsLoading(false);
+
+        console.log(data.appointments);
+        setLoadedAppointments(data.appointments);
+      } catch (err) {
+        setIsLoading(false);
+        console.log(err);
+      }
+    };
+    fetchAppointments();
+  }, [setLoadedAppointments]);
+
+  if (loadedAppointments == null) return null;
+
+  const appointmentsList = loadedAppointments.map(appointment => (
+    <AppointmentItem
+      key={appointment._id}
+      id={appointment._id}
+      doctorName={`${appointment.doctorId.firstname} ${appointment.doctorId?.secondname}`}
+      speciality={appointment.doctorId.specialization}
+      date={appointment.date}
+      time={appointment.time}
+      onDelete={appointmentDeletedHandler}
+    />
+  ));
+
+  if (appointmentsList.length === 0) {
+    return <h1>No Appointemnts found!</h1>;
+  }
 
   return (
-    <ul className={classes.list}>
-      <AppointmentItem
-        doctorName="Jhon Doe"
-        speciality="Surgery"
-        date="12/8/2022"
-        time="12:00 pm"
-      />
-      <AppointmentItem
-        doctorName="Clara Jhones"
-        speciality="Dermatolgy"
-        date="12/8/2022"
-        time="12:00 pm"
-      />
-      <AppointmentItem
-        doctorName="Ahmed Mahmoud"
-        speciality="Immunology"
-        date="12/8/2022"
-        time="12:00 pm"
-      />
-      <AppointmentItem
-        doctorName="Ali Mahmoud"
-        speciality="Surgery"
-        date="12/8/2022"
-        time="12:00 pm"
-      />
-    </ul>
+    <>{!isLoading && <ul className={classes.list}>{appointmentsList}</ul>}</>
   );
 };
 

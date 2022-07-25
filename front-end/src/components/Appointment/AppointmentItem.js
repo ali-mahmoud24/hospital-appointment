@@ -1,51 +1,48 @@
-import React from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Card from '../../shared/components/UI/Card';
-
 import Button from '../../shared/components/FormElements/Button';
+
+import AuthContext from '../../shared/context/auth-context';
 
 import classes from './AppointmentItem.module.css';
 
 const AppointmentItem = props => {
-  const { doctorName, speciality, date, time } = props;
+  const { id: appointmentId, doctorName, speciality, date, time } = props;
 
-  const navigate = useNavigate();
+  const { isAdmin } = useContext(AuthContext);
 
-  // const deleteDoctorHandler = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:8000/admin/doctors/${props.id}`,
-  //       {
-  //         method: 'DELETE',
-  //         headers: {
-  //           'Content-type': 'application/json',
-  //         },
-  //       }
-  //     );
-  //     console.log(response);
-  //     const data = await response.json();
-  //     console.log(data);
-  //     props.onDelete(props.id);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  // const navigate = useNavigate();
 
-  // const redirectToEdit = () => {
-  //   navigate(`/doctors/${props.id}`);
-  // };
+  const deleteDoctorHandler = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:8000/admin/delete-appointment/${appointmentId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      console.log(res);
+      const data = res.json();
+      console.log(data);
+      props.onDelete(props.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <li className={classes['list-item']}>
+    <li>
       <Card className={classes.card}>
         <h3>Dr. {doctorName}</h3>
 
         <h4>Speciality:</h4>
 
-        <div className="center">
-          <span>{speciality}</span>
-        </div>
+        <span>{speciality}</span>
 
         <div className={`${classes.time}`}>
           <div>
@@ -57,6 +54,17 @@ const AppointmentItem = props => {
             <h4>{time}</h4>
           </div>
         </div>
+
+        {isAdmin && (
+          <div className={`${classes.action} center`}>
+            {/* <Button inverse>
+              Edit
+            </Button> */}
+            <Button danger onClick={deleteDoctorHandler}>
+              Delete
+            </Button>
+          </div>
+        )}
       </Card>
     </li>
   );

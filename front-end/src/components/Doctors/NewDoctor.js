@@ -16,6 +16,7 @@ import { specalizationOptions } from '../../shared/utils/specailzationList';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_MAXLENGTH,
 } from '../../shared/utils/validators';
 
 import classes from './DoctorForm.module.css';
@@ -84,7 +85,6 @@ const NewDoctor = () => {
   };
 
   return (
-    // <Container>
     <form onSubmit={submitHandler} className={classes.form}>
       <Input
         id="firstname"
@@ -120,8 +120,8 @@ const NewDoctor = () => {
         id="experience"
         element="textarea"
         label="Doctor's Experience"
-        validators={[VALIDATOR_MINLENGTH(5)]}
-        errorMessage="Please enter a valid experience (at least 5 characters)."
+        validators={[VALIDATOR_MINLENGTH(5), VALIDATOR_MAXLENGTH(300)]}
+        errorMessage="Please enter a valid experience (between 5 - 300 characters)."
         onInput={inputHandler}
       />
 
@@ -137,7 +137,6 @@ const NewDoctor = () => {
         </Button>
       </div>
     </form>
-    // </Container>
   );
 };
 

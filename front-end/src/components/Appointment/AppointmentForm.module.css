@@ -1,23 +1,30 @@
 .card {
-  height: 400px;
   min-height: 300px;
-  height: 300px;
+  height: 390px;
   box-shadow: none;
 }
 
 .actions {
-  margin: 8rem auto;
   width: 60%;
+  margin-top: 14rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .actions button {
   font: inherit;
   cursor: pointer;
-  background-color: transparent;
+  color: #fff;
+  background-color: #064663;
   border: 1px solid #064663;
   padding: 0.5rem 2rem;
   border-radius: 25px;
   margin-left: 1rem;
+}
+
+.actions .button--alt {
+  background-color: transparent;
+  color: #041c32;
 }
 
 .actions button:hover,
@@ -25,13 +32,4 @@
   background-color: rgba(6, 70, 99, 0.9);
   border-color: rgba(6, 70, 99, 0.9);
   color: #fff;
-}
-
-.actions .button--alt {
-  color: #041c32;
-}
-
-.actions .button {
-  background-color: #064663;
-  color: white;
 }

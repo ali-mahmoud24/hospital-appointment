@@ -1,7 +1,7 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react'
 
-import { validate } from '../../utils/validators';
-import classes from './Input.module.css';
+import { validate } from '../../utils/validators'
+import classes from './Input.module.css'
 
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -10,47 +10,47 @@ const inputReducer = (state, action) => {
         ...state,
         value: action.val,
         isValid: validate(action.val, action.validators),
-      };
+      }
     case 'TOUCH': {
       return {
         ...state,
         isTouched: true,
-      };
+      }
     }
     default:
-      return state;
+      return state
   }
-};
+}
 
 const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue || '',
     isTouched: false,
     isValid: props.initialValid || false,
-  });
+  })
 
-  const { id, onInput } = props;
-  const { value, isValid } = inputState;
+  const { id, onInput } = props
+  const { value, isValid } = inputState
 
   useEffect(() => {
-    onInput(id, value, isValid);
-  }, [id, value, isValid, onInput]);
+    onInput(id, value, isValid)
+  }, [id, value, isValid, onInput])
 
   const changeHandler = event => {
     dispatch({
       type: 'CHANGE',
       val: event.target.value,
       validators: props.validators,
-    });
-  };
+    })
+  }
 
   const touchHandler = () => {
     dispatch({
       type: 'TOUCH',
-    });
-  };
+    })
+  }
 
-  let element;
+  let element
 
   switch (props.element) {
     case 'input':
@@ -63,8 +63,8 @@ const Input = props => {
           onBlur={touchHandler}
           value={inputState.value}
         />
-      );
-      break;
+      )
+      break
 
     case 'textarea':
       element = (
@@ -75,8 +75,8 @@ const Input = props => {
           onBlur={touchHandler}
           value={inputState.value}
         />
-      );
-      break;
+      )
+      break
     case 'select':
       element = (
         <select
@@ -88,10 +88,10 @@ const Input = props => {
           <option value="">{props.label}</option>
           {props.options}
         </select>
-      );
-      break;
+      )
+      break
     default:
-      element = null;
+      element = null
   }
 
   // const element =
@@ -117,18 +117,14 @@ const Input = props => {
   return (
     <div
       className={`${classes['form-control']} ${
-        !inputState.isValid &&
-        inputState.isTouched &&
-        classes['form-control--invalid']
+        !inputState.isValid && inputState.isTouched && classes['form-control--invalid']
       }`}
     >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
-      {!inputState.isValid && inputState.isTouched && (
-        <p>{props.errorMessage}</p>
-      )}
+      {!inputState.isValid && inputState.isTouched && <p>{props.errorMessage}</p>}
     </div>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

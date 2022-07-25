@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { useNavigate, Link, NavLink } from 'react-router-dom';
+import Button from '../../shared/components/FormElements/Button';
 
 import AuthContext from '../../shared/context/auth-context';
-import { useAuth } from '../../shared/hooks/use-auth';
 
 import classes from './Navigation.module.css';
 
 const Navigation = () => {
-  const { logout, isLoggedIn } = useContext(AuthContext);
+  const { logout, isLoggedIn, isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -20,6 +20,36 @@ const Navigation = () => {
       <ul>
         {isLoggedIn && (
           <>
+            {isAdmin && (
+              <li>
+                <NavLink
+                  className={navData =>
+                    navData.isActive ? classes.active : ''
+                  }
+                  to="/add-doctor"
+                >
+                  Add Doctor
+                </NavLink>
+              </li>
+            )}
+            <li>
+              <NavLink
+                className={navData => (navData.isActive ? classes.active : '')}
+                to="/appointments"
+              >
+                Appointments
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                className={navData => (navData.isActive ? classes.active : '')}
+                to="/doctors"
+              >
+                Book Appointment
+              </NavLink>
+            </li>
+
             <li>
               <button onClick={logoutHandler}>Logout</button>
             </li>
@@ -28,9 +58,11 @@ const Navigation = () => {
 
         {!isLoggedIn && (
           <li>
-            <Link to="/auth">
-              <button>Login</button>
-            </Link>
+            <div className={classes.button}>
+              <Link to="/auth">
+                <button>Login</button>
+              </Link>
+            </div>
           </li>
         )}
       </ul>

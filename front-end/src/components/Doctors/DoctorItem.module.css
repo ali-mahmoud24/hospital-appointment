@@ -1,33 +1,30 @@
 .list-item {
-  /* height: 400px; */
-  position: relative;
+  display: contents;
 }
 
 .card {
   box-shadow: 0 0 2px 2px #e1e5ee;
   border-radius: 10px;
 
-  max-height: 600px;
-  min-height: 580px;
+  max-height: 570px;
+  min-height: 510px;
 }
+
 .image-container {
-  width: 300px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   object-fit: cover;
 }
 
-.card-body {
-  border-top: 2px solid #000;
-  position: relative;
-}
-
 .card-body h3 {
-  margin: 0.4rem 0;
+  margin: 0;
 }
 
 .card-body h4 {
@@ -36,36 +33,21 @@
 }
 
 .card-body span {
-  text-align: center;
-
-  font-weight: bold;
-
-  min-width: 300px;
-  max-width: 430px;
-
-  background-color: #add8e6;
-  border-radius: 20px;
-  padding: 5px;
+  font-size: 16px;
+  line-height: 1.43;
+  margin-top: 0;
+  color: #938880;
 }
 
 .card-body p {
-  line-height: 1.21rem;
+  line-height: 1.2rem;
   font-size: 15px;
 }
 
-.booking {
-  position: absolute;
-  bottom: 70px;
-  left: 10px;
-  right: 10px;
-}
 .booking button {
-  cursor: pointer;
+  width: 100%;
   font-weight: bold;
   color: #000;
-  width: 90%;
-  /* background-color: #064663;
-  border: 1px solid #064663; */
   background-color: #add8e6;
   border: 1px solid #add8e6;
 }
@@ -78,19 +60,12 @@
 
 .action {
   margin-top: 0.6rem;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-
-  position: absolute;
-  bottom: 20px;
-  right: 10px;
-  left: 10px;
 }
 
 .action button {
   width: 50%;
 }
+
 .action button:first-child {
   border: 1px solid #041c32;
   color: #041c32;

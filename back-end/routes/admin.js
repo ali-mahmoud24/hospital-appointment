@@ -18,11 +18,13 @@ router.post(
 
 router.patch('/doctors/:doctorId', adminController.updateDoctor);
 
-//    /admin/doctors/:doctorId
 router.delete('/doctors/:doctorId', adminController.deleteDoctor);
 
 // router.post('/edit-appointment/appointmentId', adminController.editAppointment);
 
-// router.post('/delete-appointment//appointmentId', adminController.deleteAppointment);
+router.delete(
+  '/delete-appointment/:appointmentId',
+  adminController.deleteAppointment
+);
 
 module.exports = router;

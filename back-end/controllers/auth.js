@@ -61,8 +61,10 @@ exports.signup = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: newUser.id, email: newUser.email },
-      'supersecret_dont_share',
-      { expiresIn: '1h' }
+      process.env.JWT_KEY,
+      {
+        expiresIn: '1h',
+      }
     );
   } catch (err) {
     const error = new HttpError(
@@ -72,7 +74,12 @@ exports.signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ userId: newUser.id, email: newUser.email, token });
+  res.status(201).json({
+    userId: newUser.id,
+    email: newUser.email,
+    isAdmin: newUser.isAdmin,
+    token,
+  });
 };
 
 exports.login = async (req, res, next) => {
@@ -119,8 +126,10 @@ exports.login = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: loadedUser.id, email: loadedUser.email },
-      'supersecret_dont_share',
-      { expiresIn: '1h' }
+      process.env.JWT_KEY,
+      {
+        expiresIn: '1h',
+      }
     );
   } catch (err) {
     const error = new HttpError(
@@ -133,6 +142,7 @@ exports.login = async (req, res, next) => {
   res.json({
     userId: loadedUser.id,
     email: loadedUser.email,
+    isAdmin: loadedUser.isAdmin,
     token: token,
   });
 };

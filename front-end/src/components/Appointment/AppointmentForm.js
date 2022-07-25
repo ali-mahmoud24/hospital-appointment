@@ -1,42 +1,38 @@
-import { useState } from 'react';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { uiActions } from '../../shared/store/ui-slice';
+import { useContext, useState } from 'react';
 
 import Modal from '../../shared/components/UI/Modal';
 import Card from '../../shared/components/UI/Card';
+
+import AuthContext from '../../shared/context/auth-context';
 
 import DateTimePicker from 'react-datetime-picker';
 
 import classes from './AppointmentForm.module.css';
 
-const AppointmentForm = () => {
+const AppointmentForm = ({ doctorId, onClose }) => {
   const [time, setTime] = useState(new Date());
+  const { userId, token } = useContext(AuthContext);
 
-  const dispatch = useDispatch();
-
-  const modalIsShown = useSelector(state => state.ui.modalIsShown);
-
-  const onCloseHandler = () => {
-    dispatch(uiActions.closeModal());
-  };
-
-  if (!modalIsShown) {
-    return null;
-  }
   const addAppointmetHandler = async event => {
     event.preventDefault();
 
     try {
-      await fetch('http://localhost:8000/add-apointment', {
+      await fetch('http://localhost:8000/add-appointment', {
         method: 'POST',
-        body: JSON.stringify({ time, userId: '', doctorId: '' }),
+        mode: 'cors',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+        body: JSON.stringify({ time, userId, doctorId }),
       });
+
+      onClose();
     } catch (err) {}
   };
 
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       <Card className={classes.card}>
         <h2>Please choose appointment's date and time: </h2>
         <form onSubmit={addAppointmetHandler}>
@@ -45,11 +41,7 @@ const AppointmentForm = () => {
           </div>
 
           <div className={classes.actions}>
-            <button
-              inverse
-              className={classes['button--alt']}
-              onClick={onCloseHandler}
-            >
+            <button className={classes['button--alt']} onClick={onClose}>
               Close
             </button>
             <button type="submit" className={classes.button}>

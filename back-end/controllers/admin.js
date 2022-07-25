@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const { HttpError } = require('../models/http-error');
 
 const Doctor = require('../models/doctor');
+const Appointment = require('../models/appointment');
 
 exports.getDoctor = async (req, res, next) => {
   const { doctorId } = req.params;
@@ -77,6 +78,22 @@ exports.deleteDoctor = async (req, res, next) => {
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not delete doctor.',
+      500
+    );
+    return next(error);
+  }
+};
+
+exports.deleteAppointment = async (req, res, next) => {
+  const { appointmentId } = req.params;
+
+  let appointment;
+  try {
+    appointment = await Appointment.findByIdAndDelete({ _id: appointmentId });
+    res.status(200).json({ message: 'Deleted an appointment.' });
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not delete appointment.',
       500
     );
     return next(error);

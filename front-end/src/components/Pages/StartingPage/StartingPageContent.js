@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
+import Button from '../../../shared/components/FormElements/Button';
+
 import classes from './StartingPageContent.module.css';
 
 const StartingPageContent = () => {
   return (
-    // <div className={classes.body}>
-    <section className={classes.starting}>
-      <h1>Welcome to Appointment App!</h1>
-
-      <button>
-        <Link to={'/doctors'}>Get Started</Link>
-      </button>
-    </section>
-    // </div>
+    <>
+      <section className={`${classes.starting} center`}>
+        <h1>Welcome to Morningside Clinic!</h1>
+      </section>
+      <div className={`${classes.actions} center`}>
+        <Button to="/doctors">Book Appointment!</Button>
+      </div>
+    </>
   );
 };
 

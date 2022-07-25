@@ -4,6 +4,7 @@
 
   max-height: 300px;
   min-height: 200px;
+  max-width: 400px;
 }
 
 .card h3 {
@@ -16,16 +17,10 @@
 }
 
 .card span {
-  text-align: center;
-
-  font-weight: bold;
-
-  min-width: 300px;
-  max-width: 430px;
-
-  background-color: #add8e6;
-  border-radius: 20px;
-  padding: 5px;
+  font-size: 16px;
+  line-height: 1.43;
+  margin-top: 0;
+  color: #938880;
 }
 
 .time {
@@ -37,3 +32,20 @@
 .time h4 {
   margin: 0;
 }
+
+.action {
+  margin-top: 0.6rem;
+}
+
+.action button {
+  width: 100%;
+}
+
+/* .action button:first-child {
+  border: 1px solid #041c32;
+  color: #041c32;
+}
+.action button:first-child:hover,
+.action button:first-child:active {
+  background-color: #dadada;
+} */

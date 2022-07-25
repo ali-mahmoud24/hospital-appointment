@@ -1,4 +1,3 @@
-import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
@@ -10,94 +9,84 @@ import DoctorsPage from './pages/DoctorsPage';
 import AppointmentsPage from './pages/AppointmentsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
+import {
+  SignedInProtectedRoute,
+  ProtectedRoute,
+  AdminProtectedRoute,
+} from './shared/utils/auth-routes';
+
 import AuthContext from './shared/context/auth-context';
 import { useAuth } from './shared/hooks/use-auth';
 
-import AppointmentForm from './components/Appointment/AppointmentForm';
-
-const SignedInProtectedRoute = ({ children }) => {
-  // const { isLoggedIn } = useContext(AuthContext);
-  const { token } = useAuth();
-
-  if (token) {
-    return <Navigate to="/welcome" replace />;
-  }
-  return children;
-};
-
-const ProtectedRoute = ({ children }) => {
-  // const { isLoggedIn } = useContext(AuthContext);
-  const { token } = useAuth();
-
-  if (!token) {
-    return <Navigate to="/auth" replace />;
-  }
-  return children;
-};
-
 const App = () => {
-  const { token, login, logout, userId } = useAuth();
+  const { token, login, logout, userId, isAdmin } = useAuth();
 
   return (
-    <>
-      <DoctorsPage />
-      {/* <AppointmentsPage /> */}
-      {/* <AuthContext.Provider
-        value={{
-          isLoggedIn: !!token,
-          token: token,
-          userId: userId,
-          login: login,
-          logout: logout,
-        }}
-      >
-        <Layout>
-          <Routes>
-            <Route
-              path="/"
-              element={<Navigate to="/welcome" replace={true} />}
-            />
-            <Route path="/welcome" element={<HomePage />} />
-            <Route
-              path="/auth"
-              element={
-                <SignedInProtectedRoute>
-                  <AuthPage />
-                </SignedInProtectedRoute>
-              }
-            />
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout,
+        isAdmin,
+      }}
+    >
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Navigate to="/welcome" replace />} />
 
-            <Route
-              path="/doctors"
-              element={
-                <ProtectedRoute>
-                  <DoctorsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/add-doctor"
-              element={
-                <ProtectedRoute>
-                  <AddDoctorPage />
-                </ProtectedRoute>
-              }
-            />
+          <Route path="/welcome" element={<HomePage />} />
 
-            <Route
-              path="/doctors/:doctorId"
-              element={
-                <ProtectedRoute>
-                  <UpdateDoctorPage />
-                </ProtectedRoute>
-              }
-            />
+          <Route
+            path="/auth"
+            element={
+              <SignedInProtectedRoute>
+                <AuthPage />
+              </SignedInProtectedRoute>
+            }
+          />
 
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Layout>
-      </AuthContext.Provider> */}
-    </>
+          <Route
+            path="/doctors"
+            element={
+              <ProtectedRoute>
+                <DoctorsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/appointments"
+            element={
+              <ProtectedRoute>
+                <AppointmentsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/add-doctor"
+            element={
+              <AdminProtectedRoute>
+                <AddDoctorPage />
+              </AdminProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/doctors/:doctorId"
+            element={
+              <AdminProtectedRoute>
+                <UpdateDoctorPage />
+              </AdminProtectedRoute>
+            }
+          />
+
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Layout>
+    </AuthContext.Provider>
   );
 };
 

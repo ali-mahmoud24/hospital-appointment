@@ -62,9 +62,9 @@ const AuthForm = () => {
         });
         const loginData = await loginResponse.json();
 
-        auth.login(loginData.userId, loginData.token);
+        auth.login(loginData.userId, loginData.token, null, loginData.isAdmin);
 
-        navigate('/add-doctor', { replace: true });
+        navigate('/doctors', { replace: true });
       } catch (error) {
         alert(error);
       }
@@ -82,9 +82,14 @@ const AuthForm = () => {
         });
 
         const signupData = await signupResponse.json();
-        auth.login(signupData.userId, signupData.token);
+        auth.login(
+          signupData.userId,
+          signupData.token,
+          null,
+          signupData.isAdmin
+        );
 
-        navigate('/add-doctor', { replace: true });
+        navigate('/doctors', { replace: true });
       } catch (err) {
         console.log(err);
       }
@@ -102,7 +107,7 @@ const AuthForm = () => {
           type="email"
           label="Your E-Mail"
           validators={[VALIDATOR_EMAIL()]}
-          errorText="Please enter a valid email address."
+          errorMessage="Please enter a valid email address."
           onInput={inputHandler}
         />
         <Input
@@ -111,7 +116,7 @@ const AuthForm = () => {
           type="password"
           label="Your Password"
           validators={[VALIDATOR_MINLENGTH(6)]}
-          errorText="Please enter a valid password, at least 6 characters."
+          errorMessage="Please enter a valid password, at least 6 characters."
           onInput={inputHandler}
         />
 
